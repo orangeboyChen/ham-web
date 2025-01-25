@@ -10,9 +10,24 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="zh-cn">
-			<body>
-				<Providers>{children}</Providers>
-			</body>
+			<Head />
+			<Body>{children}</Body>
 		</html>
 	);
 }
+
+const Head = () => {
+	return (
+		<head>
+			<title>emm</title>
+		</head>
+	);
+};
+
+const Body = ({ children }: { children: React.ReactNode }) => {
+	return (
+		<body>
+			<Providers>{children}</Providers>
+		</body>
+	);
+};
