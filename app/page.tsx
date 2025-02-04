@@ -4,23 +4,18 @@
  * @version 1.0
  * @date 2025/1/25 12:40
  */
-import { Card, CardBody } from '@heroui/card';
+import { Card, CardBody, CardFooter } from '@heroui/card';
 import { useRouter } from 'next/navigation';
 import { Avatar } from '@heroui/avatar';
 import { Divider } from '@heroui/divider';
 import { Link } from '@heroui/link';
-import './page.scss';
 
 const HomePage = () => {
 	return (
 		<div className={'p-8 sm:p-20 min-h-screen'}>
 			<Header />
 			<div className={'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4'}>
-				{[1, 2, 3, 4, 5].map((item, i) => {
-					return (
-						<CardItem key={item} word={item.toString().repeat((i + 1) * 50)} />
-					);
-				})}
+				<CardItem />
 			</div>
 		</div>
 	);
@@ -46,11 +41,11 @@ const Header = () => {
 	);
 };
 
-const CardItem = ({ word }: { word: string }) => {
+const CardItem = () => {
 	const router = useRouter();
 
 	const onCardItemPressed = () => {
-		// router.push('/1');
+		router.push('/course-grade-stat');
 	};
 
 	return (
@@ -64,17 +59,17 @@ const CardItem = ({ word }: { word: string }) => {
 					<p className={'text-[16px]'}>🏃</p>
 				</div>
 				<div className={'mt-2'}>
-					<h4 className="text-black font-medium text-large mb-[-8px]">
-						Stream the Acme event
-					</h4>
-					<span className="text-tiny text-gray/60 uppercase font-bold">
-						What to watch
-					</span>
-				</div>
-				<div className={'text-right'}>
-					<span className={'material-icons-round'}>arrow_forward</span>
+					<h4 className='text-black font-medium text-[24px] mb-[-4px]'>给分</h4>
+					<span className='text-tiny text-gray/60 uppercase'>查看给分信息</span>
 				</div>
 			</CardBody>
+			<CardFooter>
+				<div className={'flex w-full justify-end'}>
+					<span className={'material-icons-round justify-self-end'}>
+						arrow_forward
+					</span>
+				</div>
+			</CardFooter>
 		</Card>
 	);
 };
