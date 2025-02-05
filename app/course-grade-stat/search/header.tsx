@@ -11,8 +11,10 @@ import { Link } from '@heroui/link';
 import { JsCourseService, JsSearchScoreHitItem } from '@/wasm/pkg';
 import { SearchBarItem } from '@/app/component/type';
 import { useRouter } from 'next/navigation';
+import { useUserInfo } from '@/app/common/userinfo';
 
 const Header = ({ queryKeyword }: { queryKeyword: string }) => {
+	const [userInfo] = useUserInfo();
 	const [inputKeyword, setInputKeyword] = useState(queryKeyword);
 	const [searchResult, setSearchResult] = useState<
 		SearchBarItem<JsSearchScoreHitItem>[]
@@ -71,11 +73,10 @@ const Header = ({ queryKeyword }: { queryKeyword: string }) => {
 				</div>
 				<div className={'justify-self-end'}>
 					<Avatar
-						name={'obc'}
 						className={
 							'cursor-pointer hover:opacity-80 active:opacity-disabled transition-opacity'
 						}
-						src='https://i.pravatar.cc/150?u=a042581f4e29026024d'
+						src={userInfo?.avatarUrl}
 					/>
 				</div>
 			</div>

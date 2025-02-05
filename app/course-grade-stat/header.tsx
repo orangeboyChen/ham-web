@@ -1,4 +1,5 @@
 import { Avatar } from '@heroui/avatar';
+import { useUserInfo } from '@/app/common/userinfo';
 
 /**
  * @author orangeboyChen
@@ -6,9 +7,10 @@ import { Avatar } from '@heroui/avatar';
  * @date 2025/1/26 01:18
  */
 const Header = () => {
+	const [userInfo] = useUserInfo();
 	return (
 		<div className={'flex flex-row-reverse items-center w-full'}>
-			<Avatar name={'obs'} />
+			<Avatar src={userInfo?.avatarUrl} />
 		</div>
 	);
 };

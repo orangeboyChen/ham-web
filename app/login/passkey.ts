@@ -7,7 +7,6 @@ import { JsPasskeyService } from '@/wasm/pkg';
 
 const getPasskeyCredentials = async () => {
 	const options = await JsPasskeyService.get_credentials_request_options();
-	console.info(options);
 	options.publicKey.challenge = Buffer.from(
 		options.publicKey.challenge,
 		'base64'

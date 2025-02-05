@@ -41,8 +41,6 @@ export const __wbg_set_jssearchscorehititem_hit: (a: number, b: number, c: numbe
 export const __wbg_get_jssearchscorehititem_value: (a: number) => [number, number];
 export const __wbg_get_jssearchscorehititem_hit_type: (a: number) => [number, number];
 export const __wbg_get_jssearchscorehititem_hit: (a: number) => [number, number];
-export const __wbg_jspasskeyservice_free: (a: number, b: number) => void;
-export const jspasskeyservice_get_credentials_request_options: () => any;
 export const __wbg_loginservice_free: (a: number, b: number) => void;
 export const __wbg_checkqrcodeloginresponse_free: (a: number, b: number) => void;
 export const __wbg_get_checkqrcodeloginresponse_scan_user_info: (a: number) => number;
@@ -63,6 +61,8 @@ export const __wbg_set_checkqrcodeloginresponse_state: (a: number, b: number, c:
 export const __wbg_set_checkqrcodeloginresponse_message: (a: number, b: number, c: number) => void;
 export const __wbg_get_checkqrcodeloginresponse_state: (a: number) => [number, number];
 export const __wbg_get_checkqrcodeloginresponse_message: (a: number) => [number, number];
+export const __wbg_jspasskeyservice_free: (a: number, b: number) => void;
+export const jspasskeyservice_get_credentials_request_options: () => any;
 export const __wbg_intounderlyingsource_free: (a: number, b: number) => void;
 export const intounderlyingsource_pull: (a: number, b: any) => any;
 export const intounderlyingsource_cancel: (a: number) => void;
@@ -84,6 +84,6 @@ export const __wbindgen_realloc: (a: number, b: number, c: number, d: number) =>
 export const __wbindgen_export_5: WebAssembly.Table;
 export const __wbindgen_free: (a: number, b: number, c: number) => void;
 export const __externref_drop_slice: (a: number, b: number) => void;
-export const closure197_externref_shim: (a: number, b: number, c: any) => void;
-export const closure209_externref_shim: (a: number, b: number, c: any, d: any) => void;
+export const closure199_externref_shim: (a: number, b: number, c: any) => void;
+export const closure211_externref_shim: (a: number, b: number, c: any, d: any) => void;
 export const __wbindgen_start: () => void;
