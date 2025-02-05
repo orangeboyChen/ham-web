@@ -1,7 +1,10 @@
 import { CheckQRCodeLoginResponse, LoginService } from '@/wasm/pkg';
+import request from '@/app/common/request';
 
 const getQRLoginTicket = async () => {
-	return await LoginService.getQRCodeLoginTicket();
+	return await request({
+		call: () => LoginService.getQRCodeLoginTicket(),
+	});
 };
 
 const checkQRLoginState = async ({
@@ -9,7 +12,9 @@ const checkQRLoginState = async ({
 }: {
 	ticket: string;
 }): Promise<CheckQRCodeLoginResponse> => {
-	return await LoginService.checkQRCodeLogin(ticket);
+	return await request({
+		call: () => LoginService.checkQRCodeLogin(ticket),
+	});
 };
 
 export { getQRLoginTicket, checkQRLoginState };

@@ -94,6 +94,12 @@ export class JsPasskeyService {
   free(): void;
   static get_credentials_request_options(): Promise<any>;
 }
+export class JsRequestError {
+  private constructor();
+  free(): void;
+  code: number;
+  message: string;
+}
 export class JsScoreService {
   private constructor();
   free(): void;

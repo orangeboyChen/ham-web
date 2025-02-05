@@ -15,17 +15,21 @@ import {
 	JsScoreService,
 } from '@/wasm/pkg';
 import { useSearchParams } from 'next/navigation';
+import request from '@/app/common/request';
 
 const SearchResult = () => {
 	const query = useSearchParams();
 	const keyword = query.get('keyword') ?? '';
 	const [result, setResult] = useState<JsCourseScoreItem[]>([]);
 	useEffect(() => {
-		JsScoreService.getScoreStat(
-			JsCourseScoreItemType.courseName(),
-			keyword,
-			JsCourseGradeStatisticsItemOrder.scoreDesc()
-		).then((r) => setResult(r));
+		request({
+			call: () =>
+				JsScoreService.getScoreStat(
+					JsCourseScoreItemType.courseName(),
+					keyword,
+					JsCourseGradeStatisticsItemOrder.scoreDesc()
+				),
+		}).then((r) => setResult(r));
 	}, [keyword]);
 
 	return (

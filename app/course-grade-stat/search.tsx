@@ -4,6 +4,7 @@ import { SearchBarItem } from '@/app/component/type';
 import { JsCourseService } from '@/wasm/pkg';
 import { useRouter } from 'next/navigation';
 import { Button } from '@heroui/button';
+import request from '@/app/common/request';
 
 /**
  * @author orangeboyChen
@@ -22,7 +23,9 @@ export const Search = () => {
 			return;
 		}
 		const requestTimer = setTimeout(async () => {
-			const hitResult = await JsCourseService.searchCourse(keyword);
+			const hitResult = await request({
+				call: () => JsCourseService.searchCourse(keyword),
+			});
 			const searchBarItemList: SearchBarItem<string>[] = hitResult.map(
 				(item) => {
 					return {

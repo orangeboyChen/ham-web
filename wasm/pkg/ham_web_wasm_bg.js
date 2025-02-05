@@ -233,11 +233,11 @@ function _assertClass(instance, klass) {
     }
 }
 function __wbg_adapter_30(arg0, arg1, arg2) {
-    wasm.closure199_externref_shim(arg0, arg1, arg2);
+    wasm.closure196_externref_shim(arg0, arg1, arg2);
 }
 
-function __wbg_adapter_201(arg0, arg1, arg2, arg3) {
-    wasm.closure211_externref_shim(arg0, arg1, arg2, arg3);
+function __wbg_adapter_209(arg0, arg1, arg2, arg3) {
+    wasm.closure208_externref_shim(arg0, arg1, arg2, arg3);
 }
 
 const __wbindgen_enum_ReadableStreamType = ["bytes"];
@@ -1025,6 +1025,69 @@ export class JsPasskeyService {
     }
 }
 
+const JsRequestErrorFinalization = (typeof FinalizationRegistry === 'undefined')
+    ? { register: () => {}, unregister: () => {} }
+    : new FinalizationRegistry(ptr => wasm.__wbg_jsrequesterror_free(ptr >>> 0, 1));
+
+export class JsRequestError {
+
+    static __wrap(ptr) {
+        ptr = ptr >>> 0;
+        const obj = Object.create(JsRequestError.prototype);
+        obj.__wbg_ptr = ptr;
+        JsRequestErrorFinalization.register(obj, obj.__wbg_ptr, obj);
+        return obj;
+    }
+
+    __destroy_into_raw() {
+        const ptr = this.__wbg_ptr;
+        this.__wbg_ptr = 0;
+        JsRequestErrorFinalization.unregister(this);
+        return ptr;
+    }
+
+    free() {
+        const ptr = this.__destroy_into_raw();
+        wasm.__wbg_jsrequesterror_free(ptr, 0);
+    }
+    /**
+     * @returns {number}
+     */
+    get code() {
+        const ret = wasm.__wbg_get_jsrequesterror_code(this.__wbg_ptr);
+        return ret;
+    }
+    /**
+     * @param {number} arg0
+     */
+    set code(arg0) {
+        wasm.__wbg_set_jsrequesterror_code(this.__wbg_ptr, arg0);
+    }
+    /**
+     * @returns {string}
+     */
+    get message() {
+        let deferred1_0;
+        let deferred1_1;
+        try {
+            const ret = wasm.__wbg_get_jsrequesterror_message(this.__wbg_ptr);
+            deferred1_0 = ret[0];
+            deferred1_1 = ret[1];
+            return getStringFromWasm0(ret[0], ret[1]);
+        } finally {
+            wasm.__wbindgen_free(deferred1_0, deferred1_1, 1);
+        }
+    }
+    /**
+     * @param {string} arg0
+     */
+    set message(arg0) {
+        const ptr0 = passStringToWasm0(arg0, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+        const len0 = WASM_VECTOR_LEN;
+        wasm.__wbg_set_jsrequesterror_message(this.__wbg_ptr, ptr0, len0);
+    }
+}
+
 const JsScoreServiceFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
     : new FinalizationRegistry(ptr => wasm.__wbg_jsscoreservice_free(ptr >>> 0, 1));
@@ -1367,6 +1430,11 @@ export function __wbg_jscoursescorerangeresponseitem_unwrap(arg0) {
     return ret;
 };
 
+export function __wbg_jsrequesterror_new(arg0) {
+    const ret = JsRequestError.__wrap(arg0);
+    return ret;
+};
+
 export function __wbg_jssearchscorehititem_new(arg0) {
     const ret = JsSearchScoreHitItem.__wrap(arg0);
     return ret;
@@ -1399,7 +1467,7 @@ export function __wbg_new_23a2665fac83c611(arg0, arg1) {
             const a = state0.a;
             state0.a = 0;
             try {
-                return __wbg_adapter_201(a, state0.b, arg0, arg1);
+                return __wbg_adapter_209(a, state0.b, arg0, arg1);
             } finally {
                 state0.a = a;
             }
@@ -1473,6 +1541,10 @@ export function __wbg_read_a2434af1186cb56c(arg0) {
 export function __wbg_releaseLock_091899af97991d2e(arg0) {
     arg0.releaseLock();
 };
+
+export function __wbg_removeItem_9d2669ee3bba6f7d() { return handleError(function (arg0, arg1, arg2) {
+    arg0.removeItem(getStringFromWasm0(arg1, arg2));
+}, arguments) };
 
 export function __wbg_resolve_4851785c9c5f573d(arg0) {
     const ret = Promise.resolve(arg0);
@@ -1600,8 +1672,8 @@ export function __wbindgen_cb_drop(arg0) {
     return ret;
 };
 
-export function __wbindgen_closure_wrapper774(arg0, arg1, arg2) {
-    const ret = makeMutClosure(arg0, arg1, 200, __wbg_adapter_30);
+export function __wbindgen_closure_wrapper788(arg0, arg1, arg2) {
+    const ret = makeMutClosure(arg0, arg1, 197, __wbg_adapter_30);
     return ret;
 };
 

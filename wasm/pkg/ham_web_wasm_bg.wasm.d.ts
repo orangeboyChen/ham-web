@@ -61,6 +61,11 @@ export const __wbg_set_checkqrcodeloginresponse_state: (a: number, b: number, c:
 export const __wbg_set_checkqrcodeloginresponse_message: (a: number, b: number, c: number) => void;
 export const __wbg_get_checkqrcodeloginresponse_state: (a: number) => [number, number];
 export const __wbg_get_checkqrcodeloginresponse_message: (a: number) => [number, number];
+export const __wbg_jsrequesterror_free: (a: number, b: number) => void;
+export const __wbg_get_jsrequesterror_code: (a: number) => number;
+export const __wbg_set_jsrequesterror_code: (a: number, b: number) => void;
+export const __wbg_get_jsrequesterror_message: (a: number) => [number, number];
+export const __wbg_set_jsrequesterror_message: (a: number, b: number, c: number) => void;
 export const __wbg_jspasskeyservice_free: (a: number, b: number) => void;
 export const jspasskeyservice_get_credentials_request_options: () => any;
 export const __wbg_intounderlyingsource_free: (a: number, b: number) => void;
@@ -84,6 +89,6 @@ export const __wbindgen_realloc: (a: number, b: number, c: number, d: number) =>
 export const __wbindgen_export_5: WebAssembly.Table;
 export const __wbindgen_free: (a: number, b: number, c: number) => void;
 export const __externref_drop_slice: (a: number, b: number) => void;
-export const closure199_externref_shim: (a: number, b: number, c: any) => void;
-export const closure211_externref_shim: (a: number, b: number, c: any, d: any) => void;
+export const closure196_externref_shim: (a: number, b: number, c: any) => void;
+export const closure208_externref_shim: (a: number, b: number, c: any, d: any) => void;
 export const __wbindgen_start: () => void;

@@ -23,7 +23,7 @@ const LoginQRCode = () => {
 	};
 
 	useEffect(() => {
-		refreshQRCodeTicket().catch((e) => console.error(e));
+		refreshQRCodeTicket().then(() => {});
 	}, []);
 
 	useEffect(() => {
