@@ -1,5 +1,6 @@
 {
   "name": "ham-web-wasm",
+  "type": "module",
   "collaborators": [
     "orangeboyChen <chenenhan@qq.com>"
   ],
@@ -10,7 +11,7 @@
     "ham_web_wasm_bg.js",
     "ham_web_wasm.d.ts"
   ],
-  "module": "ham_web_wasm.js",
+  "main": "ham_web_wasm.js",
   "types": "ham_web_wasm.d.ts",
   "sideEffects": [
     "./ham_web_wasm.js",

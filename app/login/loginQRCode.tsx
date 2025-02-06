@@ -3,28 +3,33 @@
  * @version 1.0
  * @date 2025/2/5 12:37
  */
-import { checkQRLoginState, getQRLoginTicket } from '@/app/login/qrlogin';
-import { useEffect, useState } from 'react';
-import { CheckQRCodeLoginResponse } from '@/wasm/pkg';
+import { useCallback, useEffect, useState } from 'react';
+import { CheckQRCodeLoginResponse, LoginService } from '@/wasm/pkg';
 import { Link } from '@heroui/link';
 import { Avatar } from '@heroui/avatar';
 import { QRCodeSVG } from 'qrcode.react';
 import { useUserInfo } from '@/app/common/userinfo';
+import { useRouter } from 'next/navigation';
+import useRequest from '@/app/common/request';
 
 const LoginQRCode = () => {
+	const router = useRouter();
 	const [qrCodeLoginTicket, setQrCodeLoginTicket] = useState('');
 	const [qrCodeLoginResponse, setQrCodeLoginResponse] =
 		useState<CheckQRCodeLoginResponse>();
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const [_, setUserInfo] = useUserInfo();
-	const refreshQRCodeTicket = async () => {
-		const qrCodeLoginTicket = await getQRLoginTicket();
+	const { request } = useRequest();
+	const refreshQRCodeTicket = useCallback(async () => {
+		const qrCodeLoginTicket = await request({
+			call: () => LoginService.getQRCodeLoginTicket(),
+		});
 		setQrCodeLoginTicket(qrCodeLoginTicket);
-	};
+	}, [request]);
 
 	useEffect(() => {
 		refreshQRCodeTicket().then(() => {});
-	}, []);
+	}, [refreshQRCodeTicket]);
 
 	useEffect(() => {
 		if (!qrCodeLoginTicket.length) {
@@ -33,7 +38,9 @@ const LoginQRCode = () => {
 
 		let timer: number | undefined = undefined;
 		const updateLoginTicketResponse = () => {
-			checkQRLoginState({ ticket: qrCodeLoginTicket }).then((r) => {
+			request({
+				call: () => LoginService.checkQRCodeLogin(qrCodeLoginTicket),
+			}).then((r) => {
 				if (
 					r.state ===
 					CheckQRCodeLoginResponse.check_qr_code_login_state_login_success()
@@ -47,9 +54,20 @@ const LoginQRCode = () => {
 				if (
 					timer &&
 					r.state !==
-						CheckQRCodeLoginResponse.check_qr_code_login_state_pending()
+						CheckQRCodeLoginResponse.check_qr_code_login_state_pending() &&
+					r.state !==
+						CheckQRCodeLoginResponse.check_qr_code_login_state_scanned()
 				) {
 					clearInterval(timer);
+				}
+
+				if (
+					r.state ===
+					CheckQRCodeLoginResponse.check_qr_code_login_state_login_success()
+				) {
+					setTimeout(() => {
+						router.push('/');
+					}, 1000);
 				}
 			});
 		};
@@ -58,7 +76,7 @@ const LoginQRCode = () => {
 			updateLoginTicketResponse();
 		}, 5000);
 		return () => clearInterval(timer);
-	}, [qrCodeLoginTicket, setUserInfo]);
+	}, [qrCodeLoginTicket, request, router, setUserInfo]);
 
 	return (
 		<div className={'flex flex-col items-center justify-center gap-4 mb-4'}>
@@ -102,6 +120,21 @@ const LoginQRCode = () => {
 							<div className={'material-icons-round'}>refresh</div>
 							<div>刷新二维码</div>
 						</Link>
+					</div>
+				)}
+				{qrCodeLoginResponse?.state ===
+					CheckQRCodeLoginResponse.check_qr_code_login_state_login_success() && (
+					<div className={'flex flex-col gap-2 mt-4'}>
+						<div
+							className={
+								'size-[64px] bg-blue-500 rounded-[32px] flex flex-col items-center justify-center'
+							}
+						>
+							<span className={'material-icons-round text-white !text-[36px]'}>
+								done
+							</span>
+						</div>
+						<div>登录成功</div>
 					</div>
 				)}
 			</div>

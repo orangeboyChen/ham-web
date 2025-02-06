@@ -4,7 +4,7 @@ import { SearchBarItem } from '@/app/component/type';
 import { JsCourseService } from '@/wasm/pkg';
 import { useRouter } from 'next/navigation';
 import { Button } from '@heroui/button';
-import request from '@/app/common/request';
+import useRequest from '@/app/common/request';
 
 /**
  * @author orangeboyChen
@@ -17,6 +17,7 @@ export const Search = () => {
 	const [searchBarItem, setSearchBarItem] = useState<SearchBarItem<string>[]>(
 		[]
 	);
+	const { request } = useRequest();
 	const router = useRouter();
 	useEffect(() => {
 		if (!keyword.replace(/ /g, '').length) {
@@ -37,7 +38,7 @@ export const Search = () => {
 			setSearchBarItem(searchBarItemList);
 		}, 200);
 		return () => clearTimeout(requestTimer);
-	}, [keyword]);
+	}, [keyword, request]);
 
 	return (
 		<div className={'w-full flex flex-col justify-center items-center'}>

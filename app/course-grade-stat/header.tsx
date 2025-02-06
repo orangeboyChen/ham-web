@@ -10,7 +10,13 @@ const Header = () => {
 	const [userInfo] = useUserInfo();
 	return (
 		<div className={'flex flex-row-reverse items-center w-full'}>
-			<Avatar src={userInfo?.avatarUrl} />
+			<Avatar
+				suppressHydrationWarning
+				src={userInfo?.avatarUrl}
+				className={
+					'cursor-pointer hover:opacity-80 active:opacity-disabled transition-opacity'
+				}
+			/>
 		</div>
 	);
 };

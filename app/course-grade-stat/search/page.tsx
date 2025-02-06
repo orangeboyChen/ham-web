@@ -15,12 +15,13 @@ import {
 	JsScoreService,
 } from '@/wasm/pkg';
 import { useSearchParams } from 'next/navigation';
-import request from '@/app/common/request';
+import useRequest from '@/app/common/request';
 
 const SearchResult = () => {
 	const query = useSearchParams();
 	const keyword = query.get('keyword') ?? '';
 	const [result, setResult] = useState<JsCourseScoreItem[]>([]);
+	const { request } = useRequest();
 	useEffect(() => {
 		request({
 			call: () =>
