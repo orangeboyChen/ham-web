@@ -1,5 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
+export function start(): void;
 /**
  * The `ReadableStreamType` enum.
  *

@@ -232,12 +232,17 @@ function _assertClass(instance, klass) {
         throw new Error(`expected instance of ${klass.name}`);
     }
 }
-function __wbg_adapter_30(arg0, arg1, arg2) {
-    wasm.closure202_externref_shim(arg0, arg1, arg2);
+
+export function start() {
+    wasm.start();
 }
 
-function __wbg_adapter_215(arg0, arg1, arg2, arg3) {
-    wasm.closure214_externref_shim(arg0, arg1, arg2, arg3);
+function __wbg_adapter_30(arg0, arg1, arg2) {
+    wasm.closure207_externref_shim(arg0, arg1, arg2);
+}
+
+function __wbg_adapter_220(arg0, arg1, arg2, arg3) {
+    wasm.closure219_externref_shim(arg0, arg1, arg2, arg3);
 }
 
 const __wbindgen_enum_ReadableStreamType = ["bytes"];
@@ -1355,7 +1360,7 @@ export function __wbg_fetch_07cd86dd296a5a63(arg0, arg1, arg2) {
     return ret;
 };
 
-export function __wbg_fetch_3079ee47bab2b144(arg0, arg1) {
+export function __wbg_fetch_e40fbaf7e3749c7e(arg0, arg1) {
     const ret = fetch(arg0, arg1);
     return ret;
 };
@@ -1377,6 +1382,11 @@ export function __wbg_get_67b2ba62fc30de12() { return handleError(function (arg0
     const ret = Reflect.get(arg0, arg1);
     return ret;
 }, arguments) };
+
+export function __wbg_get_74b8744f6a23f4fa(arg0, arg1, arg2) {
+    const ret = arg0[getStringFromWasm0(arg1, arg2)];
+    return isLikeNone(ret) ? 0 : addToExternrefTable0(ret);
+};
 
 export function __wbg_get_b9b93047fe3cf45b(arg0, arg1) {
     const ret = arg0[arg1 >>> 0];
@@ -1467,6 +1477,10 @@ export function __wbg_location_350d99456c2f3693(arg0) {
     return ret;
 };
 
+export function __wbg_log_c43b60e6e219179f(arg0, arg1) {
+    console.log(getStringFromWasm0(arg0, arg1));
+};
+
 export function __wbg_new_018dcc2d6c8c2f6a() { return handleError(function () {
     const ret = new Headers();
     return ret;
@@ -1479,7 +1493,7 @@ export function __wbg_new_23a2665fac83c611(arg0, arg1) {
             const a = state0.a;
             state0.a = 0;
             try {
-                return __wbg_adapter_215(a, state0.b, arg0, arg1);
+                return __wbg_adapter_220(a, state0.b, arg0, arg1);
             } finally {
                 state0.a = a;
             }
@@ -1697,8 +1711,8 @@ export function __wbindgen_cb_drop(arg0) {
     return ret;
 };
 
-export function __wbindgen_closure_wrapper797(arg0, arg1, arg2) {
-    const ret = makeMutClosure(arg0, arg1, 203, __wbg_adapter_30);
+export function __wbindgen_closure_wrapper810(arg0, arg1, arg2) {
+    const ret = makeMutClosure(arg0, arg1, 208, __wbg_adapter_30);
     return ret;
 };
 

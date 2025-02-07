@@ -3,6 +3,7 @@
 import { JsRequestError } from '@/wasm/pkg';
 import { useRouter } from 'next/navigation';
 import { useCallback } from 'react';
+import toast from 'react-hot-toast';
 
 /**
  * @author orangeboyChen
@@ -22,7 +23,10 @@ const useRequest = () => {
 						localStorage.removeItem('userInfo');
 						router.push('/login');
 					}
+					toast.error(e.message);
 					throw new Error(e.message);
+				} else if (typeof e === 'string') {
+					toast.error(e);
 				}
 				throw e;
 			}
