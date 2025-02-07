@@ -1,5 +1,4 @@
-import { Avatar } from '@heroui/avatar';
-import { useUserInfo } from '@/app/common/userinfo';
+import { UserInfoAvatar } from '@/app/component/userinfo/UserInfoAvatar';
 
 /**
  * @author orangeboyChen
@@ -7,16 +6,14 @@ import { useUserInfo } from '@/app/common/userinfo';
  * @date 2025/1/26 01:18
  */
 const Header = () => {
-	const [userInfo] = useUserInfo();
 	return (
-		<div className={'flex flex-row-reverse items-center w-full'}>
-			<Avatar
-				suppressHydrationWarning
-				src={userInfo?.avatarUrl}
-				className={
-					'cursor-pointer hover:opacity-80 active:opacity-disabled transition-opacity'
-				}
-			/>
+		<div
+			className={
+				'flex flex-row-reverse items-center w-full ' +
+				'px-4 sm:px-8 md:px-16 lg:px-24 xl:px-32 2xl:px-48'
+			}
+		>
+			<UserInfoAvatar />
 		</div>
 	);
 };

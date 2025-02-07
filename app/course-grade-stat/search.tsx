@@ -1,3 +1,5 @@
+'use client';
+
 import { SearchBar } from '@/app/component/SearchBar';
 import { useEffect, useState } from 'react';
 import { SearchBarItem } from '@/app/component/type';
@@ -41,7 +43,11 @@ export const Search = () => {
 	}, [keyword, request]);
 
 	return (
-		<div className={'w-full flex flex-col justify-center items-center'}>
+		<div
+			className={
+				'w-full flex flex-col justify-center items-center px-4 sm:px-20'
+			}
+		>
 			<span className={'material-icons-round text-purple-500 !text-[72px]'}>
 				bar_chart
 			</span>

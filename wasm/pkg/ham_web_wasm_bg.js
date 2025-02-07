@@ -238,11 +238,11 @@ export function start() {
 }
 
 function __wbg_adapter_30(arg0, arg1, arg2) {
-    wasm.closure207_externref_shim(arg0, arg1, arg2);
+    wasm.closure201_externref_shim(arg0, arg1, arg2);
 }
 
 function __wbg_adapter_220(arg0, arg1, arg2, arg3) {
-    wasm.closure219_externref_shim(arg0, arg1, arg2, arg3);
+    wasm.closure213_externref_shim(arg0, arg1, arg2, arg3);
 }
 
 const __wbindgen_enum_ReadableStreamType = ["bytes"];
@@ -1360,7 +1360,7 @@ export function __wbg_fetch_07cd86dd296a5a63(arg0, arg1, arg2) {
     return ret;
 };
 
-export function __wbg_fetch_e40fbaf7e3749c7e(arg0, arg1) {
+export function __wbg_fetch_3079ee47bab2b144(arg0, arg1) {
     const ret = fetch(arg0, arg1);
     return ret;
 };
@@ -1477,7 +1477,7 @@ export function __wbg_location_350d99456c2f3693(arg0) {
     return ret;
 };
 
-export function __wbg_log_c43b60e6e219179f(arg0, arg1) {
+export function __wbg_log_eafa6603e6c8cc1b(arg0, arg1) {
     console.log(getStringFromWasm0(arg0, arg1));
 };
 
@@ -1711,8 +1711,8 @@ export function __wbindgen_cb_drop(arg0) {
     return ret;
 };
 
-export function __wbindgen_closure_wrapper810(arg0, arg1, arg2) {
-    const ret = makeMutClosure(arg0, arg1, 208, __wbg_adapter_30);
+export function __wbindgen_closure_wrapper803(arg0, arg1, arg2) {
+    const ret = makeMutClosure(arg0, arg1, 202, __wbg_adapter_30);
     return ret;
 };
 

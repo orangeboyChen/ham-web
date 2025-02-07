@@ -16,6 +16,7 @@ const useUserInfo = (): [
 	Dispatch<SetStateAction<UserInfo | undefined>>,
 	() => void,
 ] => {
+	'use client';
 	return useLocalStorage<UserInfo>('userInfo');
 };
 

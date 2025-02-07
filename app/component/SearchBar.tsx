@@ -1,5 +1,3 @@
-'use client';
-
 import { useEffect, useRef, useState } from 'react';
 import { Divider } from '@heroui/divider';
 import { SearchBarItem } from '@/app/component/type';

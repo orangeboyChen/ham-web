@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * @author orangeboyChen
  * @version 1.0
@@ -94,7 +96,9 @@ const LoginQRCode = () => {
 					)}
 				{qrCodeLoginResponse?.state ===
 					CheckQRCodeLoginResponse.check_qr_code_login_state_scanned() && (
-					<div className={'flex flex-row items-center gap-2'}>
+					<div
+						className={'h-full flex flex-row justify-center items-center gap-2'}
+					>
 						<Avatar src={qrCodeLoginResponse.scan_user_info?.avatar_url} />
 						<div className={'max-w-32'}>
 							<div className={'overflow-ellipsis overflow-hidden font-bold'}>

@@ -6,17 +6,13 @@
 import { SearchBar } from '@/app/component/SearchBar';
 import { useEffect, useState } from 'react';
 import { Divider } from '@heroui/divider';
-import { Avatar } from '@heroui/avatar';
 import { Link } from '@heroui/link';
 import { JsCourseService, JsSearchScoreHitItem } from '@/wasm/pkg';
 import { SearchBarItem } from '@/app/component/type';
 import { useRouter } from 'next/navigation';
-import { useUserInfo } from '@/app/common/userinfo';
-import { Popover, PopoverContent, PopoverTrigger } from '@heroui/popover';
-import { Listbox, ListboxItem } from '@heroui/listbox';
+import { UserInfoAvatar } from '@/app/component/userinfo/UserInfoAvatar';
 
 const Header = ({ queryKeyword }: { queryKeyword: string }) => {
-	const [userInfo] = useUserInfo();
 	const [inputKeyword, setInputKeyword] = useState(queryKeyword);
 	const [searchResult, setSearchResult] = useState<
 		SearchBarItem<JsSearchScoreHitItem>[]
@@ -74,46 +70,10 @@ const Header = ({ queryKeyword }: { queryKeyword: string }) => {
 					/>
 				</div>
 				<div className={'justify-self-end'}>
-					<Popover placement={'bottom'}>
-						<PopoverTrigger>
-							<Avatar
-								suppressHydrationWarning
-								className={
-									'cursor-pointer hover:opacity-80 active:opacity-disabled transition-opacity'
-								}
-								src={userInfo?.avatarUrl}
-							/>
-						</PopoverTrigger>
-						<PopoverContent>
-							<AvatarListBox />
-						</PopoverContent>
-					</Popover>
+					<UserInfoAvatar />
 				</div>
 			</div>
 			<Divider />
-		</div>
-	);
-};
-
-enum AvatarListLinkType {
-	LOGOUT = 'LOGOUT',
-}
-
-const AvatarListBox = () => {
-	const router = useRouter();
-	return (
-		<div>
-			<Listbox
-				aria-label='Actions'
-				onAction={(key) => {
-					if (key === AvatarListLinkType.LOGOUT) {
-						localStorage.removeItem('token');
-						router.push('/login');
-					}
-				}}
-			>
-				<ListboxItem key={AvatarListLinkType.LOGOUT}>退出登录</ListboxItem>
-			</Listbox>
 		</div>
 	);
 };

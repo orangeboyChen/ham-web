@@ -9,7 +9,7 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang="zh-cn">
+		<html lang='zh-cn'>
 			<Head />
 			<Body>{children}</Body>
 		</html>
@@ -17,16 +17,12 @@ export default function RootLayout({
 }
 
 const Head = () => {
-	return (
-		<head>
-			<title>emm</title>
-		</head>
-	);
+	return <></>;
 };
 
 const Body = ({ children }: { children: React.ReactNode }) => {
 	return (
-		<body>
+		<body suppressHydrationWarning>
 			<Providers>{children}</Providers>
 		</body>
 	);
