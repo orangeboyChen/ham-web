@@ -2,11 +2,29 @@
 
 import { useRouter } from 'next/navigation';
 import { Card, CardBody, CardFooter } from '@heroui/card';
-import { Avatar } from '@heroui/avatar';
 import { Divider } from '@heroui/divider';
 import { Link } from '@heroui/link';
 import { useAuth } from '@/app/service/auth';
 import NoSSRAvatar from '@/app/component/userinfo/NoSSRAvatar';
+import dayjs from 'dayjs';
+
+const getGreeting = () => {
+	const hour = dayjs().hour();
+	if (hour >= 0 && hour < 5) {
+		return '还不睡吗';
+	}
+	if (hour >= 5 && hour < 6) {
+		return '清晨好';
+	} else if (hour >= 7 && hour < 12) {
+		return '早上好';
+	} else if (hour >= 12 && hour < 14) {
+		return '中午好';
+	} else if (hour >= 14 && hour < 18) {
+		return '下午好';
+	} else if (hour >= 18 && hour < 24) {
+		return '晚上好';
+	}
+};
 
 const Header = () => {
 	const { logout } = useAuth();
@@ -15,7 +33,7 @@ const Header = () => {
 			<div className={'flex items-center gap-2 pb-8'}>
 				<NoSSRAvatar className={'shrink-0'} />
 				<Divider orientation={'vertical'} className={'h-4'} />
-				<span>Good Afternoon</span>
+				<span>{getGreeting()}</span>
 				<Link
 					className={'cursor-pointer flex-shrink-0'}
 					onPress={() => logout()}
