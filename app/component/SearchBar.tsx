@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Divider } from '@heroui/divider';
 import { SearchBarItem } from '@/app/component/type';
+import classNames from 'classnames';
 
 /**
  * @author orangeboyChen
@@ -115,15 +116,15 @@ const SearchBar = <T,>({
 	return (
 		<div className={`relative w-full ${className}`} ref={divRef}>
 			<div
-				className={[
+				className={classNames(
 					'px-[12px] pt-[16px] w-full pb-[16px] h-[56px]',
 					expanded
 						? 'bg-white shadow-[0_2px_8px_1px_rgba(64,60,67,.24)]'
 						: 'bg-black/5 hover:bg-black/10',
 					expanded && searchResult.length > 0
 						? 'rounded-t-[16px]'
-						: 'rounded-[16px]',
-				].join(' ')}
+						: 'rounded-[16px]'
+				)}
 			>
 				<div className={'inline-flex w-full'}>
 					<span className={'material-icons-round mr-[8px]'}>search</span>

@@ -10,6 +10,15 @@ import toast from 'react-hot-toast';
  * @version 1.0
  * @date 2025/2/5 15:30
  */
+
+/**
+ * 错误码
+ */
+enum GrpcResponseCode {
+	PERMISSION_DENIED = 7,
+	UNAUTHENTICATED = 16,
+}
+
 const useRequest = () => {
 	const router = useRouter();
 	const request = useCallback(
@@ -19,12 +28,13 @@ const useRequest = () => {
 			} catch (e) {
 				if (e instanceof JsRequestError) {
 					const code = e.code;
-					if (code === 7 || code === 16) {
+					if (code in GrpcResponseCode) {
 						localStorage.removeItem('userInfo');
 						router.push('/login');
 					}
-					toast.error(e.message);
-					throw new Error(e.message);
+					const message = e.message;
+					toast.error(message);
+					throw new Error(message);
 				} else if (typeof e === 'string') {
 					toast.error(e);
 				}

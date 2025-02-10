@@ -1,8 +1,7 @@
 import { useUserInfo } from '@/app/common/userinfo';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
-import { useCookie } from 'react-use';
-import { cookies } from 'next/headers';
+import Cookies from 'js-cookie';
 
 /**
  * @author orangeboyChen
@@ -16,7 +15,7 @@ const useAuth = () => {
 	const logout = () => {
 		const func = async () => {
 			setUserInfo(undefined);
-			(await cookies()).delete('token');
+			Cookies.remove('token');
 			router.push('/login');
 			toast.success('已退出登录');
 		};
