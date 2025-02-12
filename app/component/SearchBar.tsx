@@ -121,9 +121,7 @@ const SearchBar = <T,>({
 					expanded
 						? 'bg-white shadow-[0_2px_8px_1px_rgba(64,60,67,.24)]'
 						: 'bg-black/5 hover:bg-black/10',
-					expanded && searchResult.length > 0
-						? 'rounded-t-[16px]'
-						: 'rounded-[16px]'
+					expanded ? 'rounded-t-[16px]' : 'rounded-[16px]'
 				)}
 			>
 				<div className={'inline-flex w-full'}>
@@ -160,7 +158,7 @@ const SearchBar = <T,>({
 					)}
 				</div>
 			</div>
-			{expanded && searchResult.length > 0 && (
+			{expanded && (
 				<div
 					className={
 						'w-full bg-white absolute overflow-hidden top-[52px] left-0 rounded-b-[16px] shadow-[0_4px_6px_rgba(32,33,36,.28)] z-10'
@@ -171,23 +169,42 @@ const SearchBar = <T,>({
 					</div>
 					<div className={'overscroll-contain overflow-auto max-h-[80vh] '}>
 						<div className={'mt-[4px]'}>
-							{searchResult.map((item, i) => {
-								return (
-									<SearchItem
-										key={i}
-										text={item.text}
-										onClick={() => {
-											onClickItem?.(item);
-											setExpanded(false);
-										}}
-									/>
-								);
-							})}
+							{searchResult.length > 0 ? (
+								<ResultItem
+									searchResult={searchResult}
+									onClick={(item) => {
+										onClickItem?.(item);
+										setExpanded(false);
+									}}
+								/>
+							) : (
+								<p className={'w-full text-center my-2 text-black/50'}>
+									没有找到课程或导师
+								</p>
+							)}
 						</div>
 					</div>
 				</div>
 			)}
 		</div>
+	);
+};
+
+const ResultItem = <T,>({
+	searchResult,
+	onClick,
+}: {
+	searchResult: SearchBarItem<T>[];
+	onClick: (item: SearchBarItem<T>) => void;
+}) => {
+	return (
+		<>
+			{searchResult.map((item, i) => {
+				return (
+					<SearchItem key={i} text={item.text} onClick={() => onClick(item)} />
+				);
+			})}
+		</>
 	);
 };
 

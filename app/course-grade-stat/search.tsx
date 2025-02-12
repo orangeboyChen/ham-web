@@ -1,12 +1,13 @@
 'use client';
 
 import { SearchBar } from '@/app/component/SearchBar';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { SearchBarItem } from '@/app/component/type';
 import { JsCourseService } from '@/wasm/pkg';
 import { useRouter } from 'next/navigation';
 import { Button } from '@heroui/button';
 import useRequest from '@/app/common/request';
+import _ from 'lodash';
 
 /**
  * @author orangeboyChen
@@ -21,14 +22,14 @@ export const Search = () => {
 	);
 	const { request } = useRequest();
 	const router = useRouter();
-	useEffect(() => {
+
+	const doSearch = useCallback(() => {
 		if (!keyword.replace(/ /g, '').length) {
 			return;
 		}
-		const requestTimer = setTimeout(async () => {
-			const hitResult = await request({
-				call: () => JsCourseService.searchCourse(keyword),
-			});
+		request({
+			call: () => JsCourseService.searchCourse(keyword),
+		}).then((hitResult) => {
 			const searchBarItemList: SearchBarItem<string>[] = hitResult.map(
 				(item) => {
 					return {
@@ -38,9 +39,16 @@ export const Search = () => {
 				}
 			);
 			setSearchBarItem(searchBarItemList);
-		}, 200);
-		return () => clearTimeout(requestTimer);
+		});
 	}, [keyword, request]);
+
+	useEffect(() => {
+		const debounceFunc = _.debounce(() => {
+			doSearch();
+		}, 200);
+		debounceFunc();
+		return () => debounceFunc.cancel();
+	}, [doSearch, keyword, request]);
 
 	return (
 		<div
@@ -64,16 +72,9 @@ export const Search = () => {
 					router.push(`/course-grade-stat/search?keyword=${item.data}`);
 				}}
 			/>
-			<Button
-				className={'mt-8 bg-black/5'}
-				onPress={() => {
-					if (keyword.length) {
-						router.push(`/course-grade-stat/search?keyword=${keyword}`);
-					}
-				}}
-			>
-				搜索
-			</Button>
+			<p className={'mt-4 text-black/40 h-4'}>
+				{keyword.length !== 0 ? '' : '在搜索框输入，然后选中候补关键字'}
+			</p>
 		</div>
 	);
 };
