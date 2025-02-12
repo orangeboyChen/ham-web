@@ -4,13 +4,15 @@
  * @date 2025/1/26 15:43
  */
 import { SearchBar } from '@/app/component/SearchBar';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Divider } from '@heroui/divider';
 import { Link } from '@heroui/link';
 import { JsCourseService, JsSearchScoreHitItem } from '@/wasm/pkg';
 import { SearchBarItem } from '@/app/component/type';
 import { useRouter } from 'next/navigation';
 import { UserInfoAvatar } from '@/app/component/userinfo/UserInfoAvatar';
+import _ from 'lodash';
+import useRequest from '@/app/common/request';
 
 const Header = ({ queryKeyword }: { queryKeyword: string }) => {
 	const [inputKeyword, setInputKeyword] = useState(queryKeyword);
@@ -18,15 +20,13 @@ const Header = ({ queryKeyword }: { queryKeyword: string }) => {
 		SearchBarItem<JsSearchScoreHitItem>[]
 	>([]);
 	const router = useRouter();
-	useEffect(() => {
-		setInputKeyword(queryKeyword);
-	}, [queryKeyword]);
-	useEffect(() => {
-		const timer = setTimeout(() => {
-			if (!inputKeyword.length) {
-				return;
-			}
-			JsCourseService.searchCourse(inputKeyword).then((r) => {
+	const { request } = useRequest();
+
+	const searchScore = useCallback(
+		(inputKeyword: string) => {
+			request({
+				call: () => JsCourseService.searchCourse(inputKeyword),
+			}).then((r) => {
 				const resultList: SearchBarItem<JsSearchScoreHitItem>[] = r.map(
 					(item) => {
 						return {
@@ -37,9 +37,22 @@ const Header = ({ queryKeyword }: { queryKeyword: string }) => {
 				);
 				setSearchResult(resultList);
 			});
+		},
+		[request]
+	);
+
+	useEffect(() => {
+		setInputKeyword(queryKeyword);
+	}, [queryKeyword]);
+	useEffect(() => {
+		const debounce = _.debounce(() => {
+			if (!inputKeyword.length) {
+				return;
+			}
+			searchScore(inputKeyword);
+			return () => debounce.cancel();
 		}, 200);
-		return () => clearTimeout(timer);
-	}, [inputKeyword]);
+	}, [inputKeyword, request, searchScore]);
 
 	return (
 		<div className={'bg-white sticky top-0 left-0'}>
