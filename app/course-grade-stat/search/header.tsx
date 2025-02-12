@@ -22,37 +22,35 @@ const Header = ({ queryKeyword }: { queryKeyword: string }) => {
 	const router = useRouter();
 	const { request } = useRequest();
 
-	const searchScore = useCallback(
-		(inputKeyword: string) => {
-			request({
-				call: () => JsCourseService.searchCourse(inputKeyword),
-			}).then((r) => {
-				const resultList: SearchBarItem<JsSearchScoreHitItem>[] = r.map(
-					(item) => {
-						return {
-							text: item.hit,
-							data: item,
-						};
-					}
-				);
-				setSearchResult(resultList);
-			});
-		},
-		[request]
-	);
+	const searchScore = useCallback(() => {
+		if (!inputKeyword.length) {
+			return;
+		}
+		request({
+			call: () => JsCourseService.searchCourse(inputKeyword),
+		}).then((r) => {
+			const resultList: SearchBarItem<JsSearchScoreHitItem>[] = r.map(
+				(item) => {
+					return {
+						text: item.hit,
+						data: item,
+					};
+				}
+			);
+			setSearchResult(resultList);
+		});
+	}, [inputKeyword, request]);
 
 	useEffect(() => {
 		setInputKeyword(queryKeyword);
 	}, [queryKeyword]);
 	useEffect(() => {
-		const debounce = _.debounce(() => {
-			if (!inputKeyword.length) {
-				return;
-			}
-			searchScore(inputKeyword);
-			return () => debounce.cancel();
+		const searchScoreDebounce = _.debounce(() => {
+			searchScore();
 		}, 200);
-	}, [inputKeyword, request, searchScore]);
+		searchScoreDebounce();
+		return () => searchScoreDebounce.cancel();
+	}, [request, searchScore]);
 
 	return (
 		<div className={'bg-white sticky top-0 left-0'}>
